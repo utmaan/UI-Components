@@ -1,10 +1,12 @@
 import type React from "react";
+import Layout from "./app/Layout";
+import { Routes, Route } from "react-router-dom";
 
-function App({ children }: { children: React.ReactNode }) {
+function App({ children }: { children?: React.ReactNode }) {
   return (
-    <>
-      <div className="w-screen h-screen bg-red-300">{children}</div>
-    </>
+    <Routes>
+      <Route path="/*" element={<Layout>{children}</Layout>} />
+    </Routes>
   );
 }
 

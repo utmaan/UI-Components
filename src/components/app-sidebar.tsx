@@ -25,6 +25,7 @@ import {
 import logoTop from "../assets/logo-top.svg";
 import { Collapsible, CollapsibleContent } from "./ui/collapsible";
 import { CollapsibleTrigger } from "@radix-ui/react-collapsible";
+import { useLocation } from "react-router-dom";
 
 const items = [
   {
@@ -32,7 +33,7 @@ const items = [
     content: [
       {
         title: "Dashboard",
-        url: "#",
+        url: "/home",
         icon: LayoutDashboardIcon,
       },
       {
@@ -85,6 +86,7 @@ const items = [
   },
 ];
 export const AppSidebar: React.FC = () => {
+  const location = useLocation();
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarHeader className="bg-[#1a222c] group-data-[collapsible=icon]:hidden">
@@ -102,8 +104,8 @@ export const AppSidebar: React.FC = () => {
             defaultOpen={index == 0}
           >
             <SidebarGroup>
-              <SidebarGroupLabel className="text-white">
-                <CollapsibleTrigger className="flex items-center justify-between w-full text-base">
+              <SidebarGroupLabel className="text-white ">
+                <CollapsibleTrigger className="flex items-center justify-between w-full text-base cursor-pointer">
                   {group?.label}
                   {group?.label && (
                     <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
@@ -114,8 +116,11 @@ export const AppSidebar: React.FC = () => {
                 <SidebarGroupContent>
                   <SidebarMenu>
                     {group?.content.map((item) => (
-                      <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
+                      <SidebarMenuItem key={item?.title}>
+                        <SidebarMenuButton
+                          isActive={location?.pathname == item?.url}
+                          asChild
+                        >
                           <a href={item.url} className="">
                             <item.icon
                               className="text-[#e45f06] w-6! h-6!"
