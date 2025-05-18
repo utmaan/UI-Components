@@ -1,7 +1,9 @@
-function App() {
+import type React from "react";
+
+function App({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="text-primary">Hello UI Components</div>
+      <div className="w-screen h-screen bg-red-300">{children}</div>
     </>
   );
 }
